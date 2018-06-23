@@ -1,0 +1,16 @@
+FROM ubuntu:16.04
+#FROM ubuntu:latest
+
+MAINTAINER CK Lee "meetup.clee@gmail.com"
+
+RUN apt-get update
+RUN apt-get install -y python python-pip wget
+RUN apt-get install -y emacs gcc git 
+RUN apt-get install -y apt-utils usbutils
+RUN apt-get install -y xterm
+RUN apt-get install -y sudo 
+RUN apt-get install -y python3-pip
+RUN pip install virtualenv
+
+
+
