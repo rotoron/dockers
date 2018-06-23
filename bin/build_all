@@ -1,0 +1,4 @@
+docker build -t "myubuntu:16.04" --force-rm -f dockerfiles/Dockerfile.myubuntu1604 .
+docker build -t "opencv:0.0" --force-rm -f dockerfiles/Dockerfile.opencv .
+docker build -t "ros:kinetic" --force-rm -f dockerfiles/Dockerfile.ros_kinetic .
+docker build -t "robot:0.0" --force-rm -f dockerfiles/Dockerfile.robot .

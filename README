@@ -1,0 +1,29 @@
+####################
+# Introduction
+####################
+
+This repository contains instructions on how to build docker images for robotic projects that make use of
+1. Arduino
+2. OpenCV
+3. ROS
+4. Tensor flow
+
+####################
+# Step 1
+####################
+Install docker in your system if it is not already there.
+
+sudo apt install docker
+sudo apt install docker.io
+
+####################
+# Step 2
+####################
+build the docker images. It may take 45 minutes and more to finish.
+
+./bin/build_all
+
+####################
+# Step 3
+####################
+launch_docker

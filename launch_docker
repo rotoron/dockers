@@ -1,0 +1,39 @@
+#!/bin/bash
+
+IMAGE="robot:0.0"
+HOSTNAME="jakku"
+
+###########################################################
+# Look for USB and video cameras
+###########################################################
+SWITCHES=""
+devices=("/dev/ttyUSB0" "/dev/video0" "/dev/video1")
+
+for dev in "${devices[@]}"
+do 
+   if [  -c $dev ] ; then
+      echo "Found $dev"
+      SWITCHES="--device=$dev $SWITCHES"
+   fi
+done
+
+###########################################################
+# passing environment variables
+###########################################################
+
+env=("DISPLAY" "UID" "USER" "QT_X11_NO_MITSHM=1")
+for e in "${env[@]}"
+do
+   SWITCHES="--env=\"$e\" $SWITCHES"
+done
+
+###########################################################
+# mapping volumes
+###########################################################
+SWITCHES="--volume=\"/tmp/.X11-unix:/tmp/.X11-unix:rw\" $SWITCHES"
+SWITCHES="--volume=\"${HOME}/robot:/home/bb8/robot:rw\" $SWITCHES"
+
+
+CMD="docker run -it $SWITCHES --hostname=\"$HOSTNAME\" --rm \"$IMAGE\""
+#echo $CMD
+eval $CMD
