@@ -21,7 +21,9 @@ done
 # passing environment variables
 ###########################################################
 
-env=("DISPLAY" "UID" "USER" "QT_X11_NO_MITSHM=1")
+env=("DISPLAY" "UID" "USER" "QT_X11_NO_MITSHM=1" "NO_AT_BRIDGE=1" "LANG=en_US.UTF8"
+     "PATH=/home/bb8/robot/bin:$PATH"
+    )
 for e in "${env[@]}"
 do
    SWITCHES="--env=\"$e\" $SWITCHES"
@@ -32,7 +34,8 @@ done
 ###########################################################
 SWITCHES="--volume=\"/tmp/.X11-unix:/tmp/.X11-unix:rw\" $SWITCHES"
 SWITCHES="--volume=\"${HOME}/robot:/home/bb8/robot:rw\" $SWITCHES"
-
+SWITCHES="--volume=\"${HOME}/bin:/home/bb8/bin:rw\" $SWITCHES"
+SWITCHES="--volume=\"/etc/locale.conf:/etc/locale.conf:rw\" $SWITCHES"
 
 CMD="docker run -it $SWITCHES --hostname=\"$HOSTNAME\" --rm \"$IMAGE\""
 #echo $CMD

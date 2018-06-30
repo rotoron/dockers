@@ -1,6 +1,13 @@
 FROM ros:kinetic
 
 ################################################################################
+# For gnome-terminal
+################################################################################
+RUN apt-get install -y gnome-terminal tcsh
+
+RUN locale-gen --purge
+RUN locale-gen en_US.UTF-8
+################################################################################
 # create user
 ################################################################################
 RUN groupadd -g 999 rosuser && \
@@ -21,15 +28,15 @@ RUN usermod -aG video bb8
 
 
 RUN mkdir -p /home/bb8
-RUN chown bb8 /home/bb8
-RUN chgrp rosuser /home/bb8
-RUN chown bb8 /home/bb8
+RUN chown bb8:rosuser /home/bb8
 USER bb8
 
 WORKDIR /home/bb8
 RUN echo "umask 0002" >> /home/bb8/.bashrc
 RUN echo "echo abc | sudo -S chgrp video /dev/video*" >> /home/bb8/.bashrc
-Run echo "#" >> /home/bb8/.bashrc
+RUN echo "#" >> /home/bb8/.bashrc
+RUN echo "PATH=$HOME/robot/bin:$HOME/bin:$PATH" >> /home/bb8/.bashrc
+
 RUN chmod 755 /home/bb8/.bashrc
 
 CMD ["/bin/bash"]
