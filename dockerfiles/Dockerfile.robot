@@ -1,6 +1,13 @@
 FROM ros:kinetic
 
 ################################################################################
+# For audio and text to speech
+################################################################################
+RUN apt-get install -y alsaplayer-alsa alsaplayer-common gnome-alsamixer alsa-utils alsamixergui
+RUN apt-get install -y festival espeak
+## For google_speech
+RUN apt-get install -y sox libsox-fmt-mp3 
+################################################################################
 # For gnome-terminal
 ################################################################################
 RUN apt-get install -y gnome-terminal tcsh
@@ -25,6 +32,10 @@ RUN usermod -aG dialout bb8
 # need video group permission to access usb cameras
 #------------------------------------------------------------
 RUN usermod -aG video bb8
+#------------------------------------------------------------
+# need video group permission to access audio
+#------------------------------------------------------------
+RUN usermod -aG audio bb8
 
 
 RUN mkdir -p /home/bb8

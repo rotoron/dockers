@@ -7,7 +7,14 @@ HOSTNAME="jakku"
 # Look for USB and video cameras
 ###########################################################
 SWITCHES=""
-devices=("/dev/ttyUSB0" "/dev/video0" "/dev/video1")
+devices=("/dev/ttyUSB0" "/dev/video0" "/dev/video1" "/dev/snd/controlC0" "/dev/snd/controlC2" "/dev/snd/seq" "/dev/snd/timer"
+	 "/dev/snd/pcmC0D0c"
+	 "/dev/snd/pcmC0D0p"
+	 "/dev/snd/pcmC0D1c"
+	 "/dev/snd/pcmC1D0c"
+	 "/dev/snd/pcmC2D0c"
+	 "/dev/snd/pcmC2D0p"
+	)
 
 for dev in "${devices[@]}"
 do 
@@ -16,6 +23,8 @@ do
       SWITCHES="--device=$dev $SWITCHES"
    fi
 done
+
+
 
 ###########################################################
 # passing environment variables
@@ -36,7 +45,10 @@ SWITCHES="--volume=\"/tmp/.X11-unix:/tmp/.X11-unix:rw\" $SWITCHES"
 SWITCHES="--volume=\"${HOME}/robot:/home/bb8/robot:rw\" $SWITCHES"
 SWITCHES="--volume=\"${HOME}/bin:/home/bb8/bin:rw\" $SWITCHES"
 SWITCHES="--volume=\"/etc/locale.conf:/etc/locale.conf:rw\" $SWITCHES"
-
+SWITCHES="--volume=\"/etc/modprobe.d/alsa-base.conf:/etc/modprobe.d/alsa-base.conf:rw\" $SWITCHES"
+SWITCHES="--volume=\"/dev/snd:/dev/snd:rw\" $SWITCHES"
+SWITCHES="--volume=\"/dev/snd/by-id:/dev/snd/by-id:rw\" $SWITCHES"
+SWITCHES="--volume=\"/dev/snd/by-path:/dev/snd/by-path:rw\" $SWITCHES"
 CMD="docker run -it $SWITCHES --hostname=\"$HOSTNAME\" --rm \"$IMAGE\""
 #echo $CMD
 eval $CMD
