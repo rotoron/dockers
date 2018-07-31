@@ -1,6 +1,6 @@
-####################
+############################################################
 # Introduction
-####################
+############################################################
 
 This repository contains instructions on how to build docker images for robotic projects that make use of
 1. Arduino
@@ -8,22 +8,46 @@ This repository contains instructions on how to build docker images for robotic 
 3. ROS
 4. Tensor flow
 
-####################
+############################################################
 # Step 1
-####################
+############################################################
 Install docker in your system if it is not already there.
 
 sudo apt install docker
 sudo apt install docker.io
 
-####################
+############################################################
 # Step 2
-####################
+############################################################
+
+sudo usermod -a -G docker $USER
+logout and login again
+
+############################################################
+# Step 3
+############################################################
 build the docker images. It may take 45 minutes and more to finish.
+
 
 ./bin/build_all
 
-####################
-# Step 3
-####################
+############################################################
+# Step 4
+############################################################
 launch_docker
+
+############################################################
+# Step 5
+# Create Python3 virtual environment and install packages
+############################################################
+
+cd ~
+sudo chown bb8:rosuser robot
+cd ~/robot
+virtualenv -p /usr/bin/python3 py3env
+echo "source py3env/bin/activate" > sourceme
+source sourceme
+pip install tensorflow
+pip install matplotlib
+pip install opencv-contrib-python
+
