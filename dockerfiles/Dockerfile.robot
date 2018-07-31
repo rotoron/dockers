@@ -46,7 +46,7 @@ WORKDIR /home/bb8
 RUN echo "umask 0002" >> /home/bb8/.bashrc
 RUN echo "echo abc | sudo -S chgrp video /dev/video*" >> /home/bb8/.bashrc
 RUN echo "#" >> /home/bb8/.bashrc
-RUN echo "PATH=$HOME/robot/bin:$HOME/bin:$PATH" >> /home/bb8/.bashrc
+RUN echo "PATH=$HOME/robot/bin:$HOME/bin:/opt/ros/kinetic/bin:$PATH" >> /home/bb8/.bashrc
 
 RUN chmod 755 /home/bb8/.bashrc
 
