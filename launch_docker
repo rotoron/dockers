@@ -7,7 +7,7 @@ HOSTNAME="jakku"
 # Look for USB and video cameras
 ###########################################################
 SWITCHES=""
-devices=("/dev/ttyUSB0" "/dev/video0" "/dev/video1" "/dev/snd/controlC0" "/dev/snd/controlC2" "/dev/snd/seq" "/dev/snd/timer"
+devices=("/dev/ttyUSB0" "/dev/nvidia0" "/dev/nvidiactl" "/dev/video0" "/dev/video1" "/dev/snd/controlC0" "/dev/snd/controlC2" "/dev/snd/seq" "/dev/snd/timer"
 	 "/dev/snd/pcmC0D0c"
 	 "/dev/snd/pcmC0D0p"
 	 "/dev/snd/pcmC0D1c"
@@ -32,6 +32,7 @@ done
 
 env=("DISPLAY" "UID" "USER" "QT_X11_NO_MITSHM=1" "NO_AT_BRIDGE=1" "LANG=en_US.UTF8"
      "PATH=/home/bb8/robot/bin:$PATH"
+     "LD_LIBRARY_PATH=/external_libs"
     )
 for e in "${env[@]}"
 do
@@ -49,6 +50,32 @@ SWITCHES="--volume=\"/etc/modprobe.d/alsa-base.conf:/etc/modprobe.d/alsa-base.co
 SWITCHES="--volume=\"/dev/snd:/dev/snd:rw\" $SWITCHES"
 SWITCHES="--volume=\"/dev/snd/by-id:/dev/snd/by-id:rw\" $SWITCHES"
 SWITCHES="--volume=\"/dev/snd/by-path:/dev/snd/by-path:rw\" $SWITCHES"
+###########################################################
+# The followings are needed for using OpenGL in docker
+# https://github.com/NVIDIA/nvidia-docker/issues/11#issuecomment-236379456
+###########################################################
+SWITCHES="--volume=\"/usr/lib/x86_64-linux-gnu/libXau.so.6.0.0:/external_libs/libXau.so.6.0.0:rw\" $SWITCHES"
+SWITCHES="--volume=\"/usr/lib/x86_64-linux-gnu/libXdmcp.so.6:/external_libs/libXdmcp.so.6:rw\" $SWITCHES"
+SWITCHES="--volume=\"/usr/lib/x86_64-linux-gnu/libXext.so.6:/external_libs/libXext.so.6:rw\" $SWITCHES"
+SWITCHES="--volume=\"/usr/lib/x86_64-linux-gnu/libXdmcp.so.6.0.0:/external_libs/libXdmcp.so.6.0.0:rw\" $SWITCHES"
+SWITCHES="--volume=\"/usr/lib/x86_64-linux-gnu/libX11.so.6.3.0:/external_libs/libX11.so.6.3.0:rw\" $SWITCHES"
+SWITCHES="--volume=\"/usr/lib/x86_64-linux-gnu/libxcb.so.1:/external_libs/libxcb.so.1:rw\" $SWITCHES"
+SWITCHES="--volume=\"/usr/lib/x86_64-linux-gnu/libXext.so.6.4.0:/external_libs/libXext.so.6.4.0:rw\" $SWITCHES"
+SWITCHES="--volume=\"/usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0:/external_libs/libxcb.so.1.1.0:rw\" $SWITCHES"
+SWITCHES="--volume=\"/usr/lib/x86_64-linux-gnu/libX11.so.6:/external_libs/libX11.so.6:rw\" $SWITCHES"
+SWITCHES="--volume=\"/usr/lib/x86_64-linux-gnu/libXau.so.6:/external_libs/libXau.so.6:rw\" $SWITCHES"
+#SWITCHES="--volume=\"/usr/lib/nvidia-352/libGL.so.352.63:/external_libs/libGL.so.352.63:rw\" $SWITCHES"
+#SWITCHES="--volume=\"/usr/lib/nvidia-352/libnvidia-glcore.so.352.63:/external_libs/libnvidia-glcore.so.352.63:rw\" $SWITCHES"
+#SWITCHES="--volume=\"/usr/lib/nvidia-352/libGL.so.1:/external_libs/libGL.so.1:rw\" $SWITCHES"
+#SWITCHES="--volume=\"/usr/lib/nvidia-352/tls/libnvidia-tls.so.352.63:/external_libs/libnvidia-tls.so.352.63:rw\" $SWITCHES"
+# run this to check the driver version
+# nvidia-smi  | grep -i "Driver Version"
+SWITCHES="--volume=\"/usr/lib/nvidia-390/libGL.so.390.30:/external_libs/libGL.so.390.30:rw\" $SWITCHES"
+SWITCHES="--volume=\"/usr/lib/nvidia-390/libnvidia-glcore.so.390.30:/external_libs/libnvidia-glcore.so.390.30:rw\" $SWITCHES"
+SWITCHES="--volume=\"/usr/lib/nvidia-390/libGL.so.1:/external_libs/libGL.so.1:rw\" $SWITCHES"
+SWITCHES="--volume=\"/usr/lib/nvidia-390/tls/libnvidia-tls.so.390.30:/external_libs/libnvidia-tls.so.390.30:rw\" $SWITCHES"
+
+###########################################################
 CMD="docker run -it $SWITCHES --hostname=\"$HOSTNAME\" --rm \"$IMAGE\""
 #echo $CMD
 eval $CMD
