@@ -71,5 +71,14 @@ To launch roscore, run the following
 ros_setup
 roscore
 
+############################################################
+# Step 7
+# Install PyBullet physics engine
+# https://github.com/bulletphysics/bullet3
+############################################################
+
+cd ~/robot
+source sourceme
+pip install pybullet
 
 
