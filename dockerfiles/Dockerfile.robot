@@ -1,6 +1,20 @@
 FROM ros:kinetic
 
 ################################################################################
+# For viewing mp4 files generated from PyBullet
+################################################################################
+RUN apt-get install -y vlc
+
+################################################################################
+# Install blender 2.79 (this version is needed by Phobos)
+################################################################################
+RUN apt-get update
+RUN apt-get install software-properties-common -y
+RUN add-apt-repository ppa:thomas-schiex/blender -y
+RUN apt-get update
+RUN apt-get install blender=2.79.b~1521727842-0thomas~xenial0 -y
+
+################################################################################
 # For audio and text to speech
 ################################################################################
 RUN apt-get install -y alsaplayer-alsa alsaplayer-common gnome-alsamixer alsa-utils alsamixergui

@@ -81,4 +81,19 @@ cd ~/robot
 source sourceme
 pip install pybullet
 
+############################################################
+# Step 8
+# Install Phobos (an robotics add-on for Blender)
+# https://github.com/dfki-ric/phobos/wiki/Installation
+############################################################
+# Phobos requires PyYaml (refer to https://github.com/dfki-ric/phobos/wiki/installation)
+pip3 install PyYaml
+cd ~/robot/git
+git clone https://github.com/dfki-ric/phobos
+cd phobos
+git checkout release-0.8
+python3.5 setup.py --startup-present
+(enter version 2.79)
+
+
 
