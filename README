@@ -47,7 +47,7 @@ cd ~/robot
 virtualenv -p /usr/bin/python3 py3env
 echo "source py3env/bin/activate" > sourceme
 source sourceme
-pip install tensorflow
+pip install tensorflow agents
 pip install matplotlib
 pip install opencv-contrib-python
 
@@ -81,6 +81,7 @@ cd ~/robot
 source sourceme
 pip install pybullet
 
+
 ############################################################
 # Step 8
 # Install Phobos (an robotics add-on for Blender)
@@ -96,4 +97,10 @@ python3.5 setup.py --startup-present
 (enter version 2.79)
 
 
-
+############################################################
+# Step 9
+# Install OpenAI Gym
+############################################################
+cd ~/robot
+source sourceme
+pip install gym

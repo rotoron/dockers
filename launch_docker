@@ -42,6 +42,7 @@ done
 ###########################################################
 # mapping volumes
 ###########################################################
+SWITCHES="--volume=\"/home/cklee/bb8:/home/bb8:rw\" $SWITCHES"
 SWITCHES="--volume=\"/tmp/.X11-unix:/tmp/.X11-unix:rw\" $SWITCHES"
 SWITCHES="--volume=\"${HOME}/robot:/home/bb8/robot:rw\" $SWITCHES"
 SWITCHES="--volume=\"${HOME}/bin:/home/bb8/bin:rw\" $SWITCHES"

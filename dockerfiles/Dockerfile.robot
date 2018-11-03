@@ -4,6 +4,7 @@ FROM ros:kinetic
 # For viewing mp4 files generated from PyBullet
 ################################################################################
 RUN apt-get install -y vlc
+RUN apt-get install -y python3-tk
 
 ################################################################################
 # Install blender 2.79 (this version is needed by Phobos)
@@ -52,16 +53,16 @@ RUN usermod -aG video bb8
 RUN usermod -aG audio bb8
 
 
-RUN mkdir -p /home/bb8
-RUN chown bb8:rosuser /home/bb8
+#RUN mkdir -p /home/bb8
+#RUN chown bb8:rosuser /home/bb8
 USER bb8
 
-WORKDIR /home/bb8
-RUN echo "umask 0002" >> /home/bb8/.bashrc
-RUN echo "echo abc | sudo -S chgrp video /dev/video*" >> /home/bb8/.bashrc
-RUN echo "#" >> /home/bb8/.bashrc
-RUN echo "PATH=$HOME/robot/bin:$HOME/bin:/opt/ros/kinetic/bin:$PATH" >> /home/bb8/.bashrc
+#WORKDIR /home/bb8
+#RUN echo "umask 0002" >> /home/bb8/.bashrc
+#RUN echo "echo abc | sudo -S chgrp video /dev/video*" >> /home/bb8/.bashrc
+#RUN echo "#" >> /home/bb8/.bashrc
+#RUN echo "PATH=$HOME/robot/bin:$HOME/bin:/opt/ros/kinetic/bin:$PATH" >> /home/bb8/.bashrc
 
-RUN chmod 755 /home/bb8/.bashrc
+#RUN chmod 755 /home/bb8/.bashrc
 
 CMD ["/bin/bash"]
